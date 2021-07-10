@@ -50,8 +50,7 @@ jobs:
 
       - name: Run Test and Generate Report
         run: |
-          cd server/
-          poetry run coverage run manage.py test -v 2
+          poetry run coverage run server/manage.py test -v 2
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v1
