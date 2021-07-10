@@ -61,7 +61,7 @@ class QuizTest(BaseTestCase):
 
     def _validate_quized_res(self, res, reference=tz.localtime()):
         """
-        validate the quiz list response against refrenced time
+        validate the quiz list response against referenced time
 
         - check if reference is after live since
         - check if available till is after reference
@@ -80,7 +80,7 @@ class QuizTest(BaseTestCase):
     def test_quiz_list(self):
         data = get_quiz_data()
 
-        # post quiz for after 1 hour now upto 5 hours
+        # post quiz for after 1 hour now up to 5 hours
         data["live_since"] = (
             tz.localtime() + timedelta(hours=1, minutes=10)
         ).isoformat()
