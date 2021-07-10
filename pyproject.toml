@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "quiz-api"
+version = "0.1.0"
+description = "A simple Quiz API which can be scheduled from admin and start attempting as scheduled time only."
+authors = ["Naman Tamrakar <namantam1@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+Django = "3.1.4"
+djangorestframework = "^3.12.4"
+djangorestframework-simplejwt = "^4.7.2"
+django-url-filter = "^0.3.15"
+psycopg2-binary = "^2.9.1"
+black = "^21.6b0"
+coverage = "^5.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
