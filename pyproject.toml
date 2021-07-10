@@ -12,9 +12,12 @@ djangorestframework = "^3.12.4"
 djangorestframework-simplejwt = "^4.7.2"
 django-url-filter = "^0.3.15"
 psycopg2-binary = "^2.9.1"
+django-ordered-model = "^3.4.3"
+Pillow = "^8.3.1"
+django-debug-toolbar = "^3.2.1"
 
 [tool.poetry.dev-dependencies]
-black = {version = "^21.6b0", allow-prereleases = true}
+black = { version = "^21.6b0", allow-prereleases = true }
 coverage = "^5.5"
 pre-commit = "^2.13.0"
 

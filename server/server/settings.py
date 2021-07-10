@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "ordered_model",
+    "quiz",
 ]
 
 MIDDLEWARE = [
@@ -105,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "asia/kolkata"
 
 USE_I18N = True
 
@@ -117,4 +120,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+
+ENABLE_DEBUG_TOOLBAR = True
+
+# =========================================================
+if ENABLE_DEBUG_TOOLBAR:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    INTERNAL_IPS = [
+        # ...
+        "127.0.0.1",
+        "localhost",
+        # ...
+    ]
+    print("Runing local setting and debug tootlbar is enabled.")

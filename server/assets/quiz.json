@@ -1,0 +1,72 @@
+{
+    "name": "Question Paper 1",
+    "topic": "Programming",
+    "time_per_question": 10,
+    "marks_per_question": 10,
+    "live_since": "2021-08-10T00:00",
+    "available_till": "2021-08-15T00:00",
+    "mcq_questions": [
+        {
+            "image": null,
+            "text": "what is Python?",
+            "answer_image": null,
+            "answer_text": "Programming Language",
+            "options": [
+                {
+                    "text": "Software"
+                },
+                {
+                    "text": "Game"
+                },
+                {
+                    "text": "Snake"
+                },
+                {
+                    "text": "Programming language",
+                    "is_true": true
+                }
+            ]
+        },
+        {
+            "image": null,
+            "text": "what is Django",
+            "answer_image": null,
+            "answer_text": "Django is python web framework.",
+            "options": [
+                {
+                    "text": "web framework",
+                    "is_true": true
+                },
+                {
+                    "text": "river"
+                },
+                {
+                    "text": "programming lanugage"
+                },
+                {
+                    "text": "non of these"
+                }
+            ]
+        }
+    ],
+    "text_questions": [
+        {
+            "image": null,
+            "text": "what is JWT?",
+            "answer_image": null,
+            "answer_text": "JWT is json web token"
+        },
+        {
+            "image": null,
+            "text": "what is Rest API used for?",
+            "answer_image": null,
+            "answer_text": "Rest API is used for commuincating between server and client."
+        },
+        {
+            "image": null,
+            "text": "what is OOPs",
+            "answer_image": null,
+            "answer_text": "OOPS stands for Object Oriented Programming."
+        }
+    ]
+}
