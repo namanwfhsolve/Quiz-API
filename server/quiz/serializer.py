@@ -15,7 +15,7 @@ class QuizSerializer(serializers.ModelSerializer):
             )
         return time
 
-    def validate_available_till(self, time, *args, **kwargs):
+    def validate_available_till(self, time):
         # if available is less than now
         # raise error
         if time < tz.localtime():
