@@ -1,0 +1,89 @@
+name: Continuous Delivery
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Change Log"
+        required: true
+
+# set package respository in environment
+env:
+  WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
+  NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx
+
+jobs:
+  build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+
+      - name: Add environment variables to .env
+        # setup secret key used
+        run: |
+          echo DEBUG=0 >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+
+      - name: Set environment variables
+        run: |
+          echo "WEB_IMAGE=$(echo ${{env.WEB_IMAGE}} )" >> $GITHUB_ENV
+          echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
+
+      - name: Log in to GitHub Packages
+        run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Pull images
+        run: |
+          docker pull ${{ env.WEB_IMAGE }} || true
+          docker pull ${{ env.NGINX_IMAGE }} || true
+
+      - name: Build images
+        run: |
+          docker-compose build
+
+      - name: Push images to GitHub package respository
+        run: |
+          docker push ${{ env.WEB_IMAGE }}
+          docker push ${{ env.NGINX_IMAGE }}
+
+  deploy:
+    name: Deploy to AWS
+    runs-on: ubuntu-latest
+    needs: build
+    # if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+      - name: Add environment variables to .env
+        run: |
+          echo DEBUG=0 >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          echo NAMESPACE=${{ secrets.NAMESPACE }} >> .env
+          echo PERSONAL_ACCESS_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }} >> .env
+
+      - name: Add the private SSH key to the ssh-agent
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
+
+      - name: Build and deploy images on AWS
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          scp  -o StrictHostKeyChecking=no -r ./.env ./docker-compose.prod.yaml ubuntu@${{ secrets.SERVER_URL }}:app
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_URL }} << 'ENDSSH'
+            cd app
+            source .env
+            sudo docker login ghcr.io -u $NAMESPACE -p $PERSONAL_ACCESS_TOKEN
+            sudo docker pull $WEB_IMAGE
+            sudo docker pull $NGINX_IMAGE
+            sudo docker-compose -f docker-compose.prod.yaml up -d
+          ENDSSH

@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    volumes:
+      - static_volume:/home/app/microservice/server/static
+      - media_volume:/home/app/microservice/server/media
+    depends_on:
+      - web
+    restart: "on-failure"
+
+  web:
+    build: . #build the image for the web service from the dockerfile in parent directory
+    command: sh ./guicorn.sh
+    volumes:
+      - static_volume:/home/app/microservice/server/static
+      - media_volume:/home/app/microservice/server/media
+
+    restart: "on-failure"
+
+volumes:
+  static_volume:
+  media_volume:
