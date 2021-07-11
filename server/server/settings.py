@@ -25,7 +25,7 @@ SECRET_KEY = "up60t_1&$=6+*up8!jk$e3(4j9r23vnxzmb)qrzy5r%ec-om0s"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
