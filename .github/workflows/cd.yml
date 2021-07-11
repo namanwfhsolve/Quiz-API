@@ -64,6 +64,8 @@ jobs:
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo NAMESPACE=${{ secrets.NAMESPACE }} >> .env
           echo PERSONAL_ACCESS_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }} >> .env
+          echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> .env
+          echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
 
       - name: Add the private SSH key to the ssh-agent
         env:
