@@ -3,6 +3,7 @@
 # gunicorn server.wsgi -b 0.0.0.0:8000
 
 cd server
+export APP_PORT=8000
 echo "Hello Naman!"
 echo "running on ${APP_PORT}"
 poetry run python manage.py makemigrations
