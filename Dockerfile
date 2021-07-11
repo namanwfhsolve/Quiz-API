@@ -1,11 +1,11 @@
 FROM python:3.7-slim
 
 ENV MICRO_SERVICE=/home/app/microservice
-ENV APP_USER=naman
-
-# RUN echo Hello $APP_USER
-# RUN addgroup -S $APP_USER && adduser -S $APP_USER -G $APP_USER
-# set work directory
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+ENV YOUR_ENV=development
 
 
 RUN mkdir -p $MICRO_SERVICE
@@ -14,10 +14,6 @@ RUN mkdir -p $MICRO_SERVICE
 # where the code lives
 WORKDIR $MICRO_SERVICE
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE 1
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED 1
 
 # install dependencies
 RUN pip install --upgrade pip

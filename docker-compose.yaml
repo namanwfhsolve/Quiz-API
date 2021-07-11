@@ -1,44 +1,26 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx:
     build: ./nginx
     ports:
-      - 1300:80
+      - 8000:80
     volumes:
       - static_volume:/home/app/microservice/server/static
+      - media_volume:/home/app/microservice/server/media
     depends_on:
       - web
     restart: "on-failure"
 
   web:
     build: . #build the image for the web service from the dockerfile in parent directory
-    command: sh ./server.sh
+    command: sh ./guicorn.sh
     volumes:
-      - .:/microservice # map data and files from parent directory in host to microservice directory in docker containe
       - static_volume:/home/app/microservice/server/static
-    env_file:
-      - .env
-    image: sampleapp
+      - media_volume:/home/app/microservice/server/media
 
-    # expose:
-    #   - ${APP_PORT}
     restart: "on-failure"
-    # depends_on:
-    #   - db
-#   db:
-#     image: postgres:11-alpine
-#     volumes:
-#       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-#       - postgres_data:/var/lib/postgresql/data/
-#     environment:
-#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#       - POSTGRES_DB=${DB_NAME}
-#       - PGPORT=${DB_PORT}
-#       - POSTGRES_USER=${POSTGRES_USER}
-#     restart: "on-failure"
-
 
 volumes:
-  postgres_data:
   static_volume:
+  media_volume:
