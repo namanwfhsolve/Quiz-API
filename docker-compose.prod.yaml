@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   nginx:
-    image: "${WEB_IMAGE}"
+    image: "${NGINX_IMAGE}"
     ports:
       - 1300:80
     volumes:
@@ -12,14 +12,14 @@ services:
     restart: "on-failure"
 
   web:
-    image: "${NGINX_IMAGE}" #build the image for the web service from the dockerfile in parent directory
+    image: "${WEB_IMAGE}" #build the image for the web service from the dockerfile in parent directory
     command: sh ./server.sh
     volumes:
       - .:/microservice # map data and files from parent directory in host to microservice directory in docker containe
       - static_volume:/home/app/microservice/server/static
     env_file:
       - .env
-    # image: sampleapp
+    image: sampleapp
 
     # expose:
     #   - ${APP_PORT}
