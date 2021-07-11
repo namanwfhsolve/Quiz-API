@@ -21,8 +21,8 @@ services:
       - .env
     image: sampleapp
 
-    expose:
-      - ${APP_PORT}
+    # expose:
+    #   - ${APP_PORT}
     restart: "on-failure"
     # depends_on:
     #   - db
