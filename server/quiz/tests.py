@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone as tz
+from django.core.management import call_command
 
 from rest_framework.test import APIClient
 
@@ -18,9 +19,27 @@ def get_quiz_data():
 # Create your tests here.
 class BaseTestCase(TestCase):
     api_client = APIClient()
+    _setup_done = False
+    _admin_login_done = False
+
+    def _setup_data(self):
+        if not self._setup_done:
+            call_command("setup_data")
+            self._setup_done = True
+
+    def _admin_login(self):
+        self._setup_data()
+        if not self._admin_login_done:
+            self.assertTrue(
+                self.api_client.login(username="admin", password="password"),
+                "Admin login failed",
+            )
 
 
 class QuizTest(BaseTestCase):
+    def setUp(self):
+        return self._admin_login()
+
     def _to_datetime(self, data):
         """returns isoformated time"""
         return tz.localtime(datetime.fromisoformat(data))
