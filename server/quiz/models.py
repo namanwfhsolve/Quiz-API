@@ -22,6 +22,9 @@ class Quiz(OrderedModel):
     def __str__(self):
         return self.name or str(self.id)
 
+    class Meta:
+        verbose_name_plural = "Quizes"
+
 
 class TextQuestion(OrderedModel):
     """MCQ Question model"""
@@ -32,7 +35,7 @@ class TextQuestion(OrderedModel):
     created_on = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on = models.DateTimeField(auto_now=True, db_index=True)
     text = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to="quiz/questions", null=True, blank=True)
+    image = models.URLField(null=True, blank=True)
     answer_text = models.TextField(null=True, blank=True)
     answer_image = models.ImageField(
         upload_to="quiz/questions/answers", null=True, blank=True
@@ -51,7 +54,7 @@ class McqQuestion(OrderedModel):
     created_on = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on = models.DateTimeField(auto_now=True, db_index=True)
     text = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to="quiz/questions", null=True, blank=True)
+    image = models.URLField(null=True, blank=True)
     answer_text = models.TextField(null=True, blank=True)
     answer_image = models.ImageField(
         upload_to="quiz/questions/answers", null=True, blank=True
@@ -70,7 +73,7 @@ class Option(OrderedModel):
     created_on = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_on = models.DateTimeField(auto_now=True, db_index=True)
     text = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to="quiz/options", null=True, blank=True)
+    image = models.URLField(null=True, blank=True)
     is_true = models.BooleanField(default=False)
 
     def __str__(self):

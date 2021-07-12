@@ -60,7 +60,7 @@ class TextQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TextQuestion
         fields = "__all__"
-        extra_kwargs = {"quiz": {"required": False}}
+        extra_kwargs = {"quiz": {"read_only": True}}
 
 
 class OptionSerializer(serializers.ModelSerializer):
@@ -75,7 +75,7 @@ class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Option
         fields = "__all__"
-        extra_kwargs = {"question": {"required": False}}
+        extra_kwargs = {"question": {"read_only": True}}
 
 
 class QuizListSerializer(QuizSerializer):

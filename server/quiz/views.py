@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from url_filter.integrations.drf import DjangoFilterBackend
 from django.utils import timezone as tz
 
@@ -25,3 +26,4 @@ class QuizCreateView(generics.CreateAPIView):
     queryset = Quiz.objects.prefetch_related(
         "quiz_mcq_questions__mcq_question_options", "quiz_text_questions"
     )
+    permission_classes = [IsAdminUser]
