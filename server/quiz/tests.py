@@ -28,7 +28,7 @@ class QuizTest(BaseTestCase):
     def _post_quiz(self, data):
         """post quiz with given data"""
         res = self.api_client.post(
-            "/quiz/quiz/create/",
+            "/quiz/create/",
             data=json.dumps(data),
             content_type="application/json",
         )

@@ -2,7 +2,15 @@ from rest_framework import serializers
 
 from django.utils import timezone as tz
 
-from .models import Quiz, McqQuestion, TextQuestion, Option
+from .models import (
+    Quiz,
+    McqQuestion,
+    TextQuestion,
+    Option,
+    QuizResult,
+    UserMcqQuestionResponse,
+    UserTextQuestionResponse,
+)
 
 
 class QuizSerializer(serializers.ModelSerializer):
@@ -164,3 +172,36 @@ class QuizDetailSerializer(QuizSerializer):
             TextQuestion.objects.create(**question, quiz=quiz)
 
         return quiz
+
+
+# ##############################################################
+
+
+class QuizResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizResult
+        fields = "__all__"
+
+
+class UserMcqQuestionResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserMcqQuestionResponse
+        fields = "__all__"
+
+
+class UserTextQuestionResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserTextQuestionResponse
+        fields = "__all__"
+
+
+class QuizSumbmissionSerializer(QuizResultSerializer):
+    mcq_questions = UserMcqQuestionResponseSerializer(
+        source="result_mcq_question_responses", many=True
+    )
+    text_questions = UserMcqQuestionResponseSerializer(
+        source="result_text_question_responses", many=True
+    )
+
+    class Meta(QuizResultSerializer.Meta):
+        fields = ["mcq_questions", "text_questions"]

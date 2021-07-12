@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from rest_framework import permissions
@@ -44,6 +45,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     # ADMIN
     path("admin/", admin.site.urls),
+    path("", TemplateView.as_view(template_name="quiz/ping.html")),
+    path("ping/", TemplateView.as_view(template_name="quiz/ping.html")),
     # AUTHENTICATION API
     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
