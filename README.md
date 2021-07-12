@@ -10,7 +10,7 @@
 
 Prerequisite:
 - [Poetry](https://python-poetry.org/docs/#installation)
-- [Python ~3.7](https://www.python.org/downloads/)
+- [Python ^3.7](https://www.python.org/downloads/)
 - Recommended code editor [VS Code](https://code.visualstudio.com/download)
 - Code formatting with [Black](https://github.com/psf/black)
 
@@ -45,12 +45,12 @@ Now visit [http://localhost:8000/ping](http://localhost:8000/ping) in the browse
 
 ## APIs
 
-- Got to [redoc](http://13.233.61.192:8000/redoc/) for getting all apis list and their detailed schema of body and response.
-- To test the api got to [Swagger](http://13.233.61.192:8000/swagger/).
+- Got to [redoc](https://quiz-api.namantam1.tech/redoc/) for getting all apis list and their detailed schema of body and response.
+- To test the api got to [Swagger](https://quiz-api.namantam1.tech/swagger/).
 
 ### Some more Points:
-1. For authentication JWT token is used which can be get from [login](http://13.233.61.192:8000/redoc/#operation/login_create) API.
-2. For creating the Quiz one can use [quiz_create_create](http://13.233.61.192:8000/redoc/#operation/quiz_create_create) or can create it from [Django Admin](http://13.233.61.192:8000/admin) also by going to Quiz tab.
+1. For authentication JWT token is used which can be get from [login](https://quiz-api.namantam1.tech/redoc/#operation/login_create) API.
+2. For creating the Quiz one can use [quiz_create_create](https://quiz-api.namantam1.tech/redoc/#operation/quiz_create_create) or can create it from [Django Admin](https://quiz-api.namantam1.tech/admin) also by going to Quiz tab.
 > - username: `admin`
 > - password: `password`
 3. To get the quiz list use the params `live_since__lte` (less than equal to) & `available_till__gte` (greater than equal to) to get relevant reponse.
