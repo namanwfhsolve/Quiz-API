@@ -11,7 +11,7 @@ on:
 env:
   WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
   NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx
-  APP_PORT: secrets.APP_PORT
+  APP_PORT: $secrets.APP_PORT
 
 jobs:
   build:
