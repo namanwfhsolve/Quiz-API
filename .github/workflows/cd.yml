@@ -44,6 +44,8 @@ jobs:
       - name: Build images
         run: |
           docker-compose build
+          docker tag quiz-api_web ${{ env.WEB_IMAGE }}:latest
+          docker tag quiz-api_nginx ${{ env.NGINX_IMAGE }}:latest
 
       - name: Push images to GitHub package respository
         run: |

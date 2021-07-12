@@ -16,6 +16,7 @@ services:
     image: "${WEB_IMAGE}"
     command: sh ./gunicorn.sh
     volumes:
+      - data/db.sqlite3:/home/app/microservice/server/db.sqlite3
       - static_volume:/home/app/microservice/server/static
       - media_volume:/home/app/microservice/server/media
 
